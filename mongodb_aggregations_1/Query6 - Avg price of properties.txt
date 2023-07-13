@@ -1,0 +1,9 @@
+db.listingsAndReviews.aggregate(
+    [ { $match : { "address.market" : "Porto" } }, {
+       $group:
+         {
+           _id: null,
+           avgPrice: { $avg: "$price" }
+         }
+     } ]
+);

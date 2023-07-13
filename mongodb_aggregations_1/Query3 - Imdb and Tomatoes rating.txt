@@ -1,0 +1,4 @@
+db.movies.aggregate( [
+  { $match: { $and: [ { "imdb.rating": { $gt: 7 } }, { "imdb.votes": { $gte: 10 } }, { "tomatoes.viewer.rating": { $gt: 5 } }, { "tomatoes.viewer.numReviews": { $gte: 50 } } ] } },
+  { $group: { _id: null, count: { $sum: 1 } } }
+] );

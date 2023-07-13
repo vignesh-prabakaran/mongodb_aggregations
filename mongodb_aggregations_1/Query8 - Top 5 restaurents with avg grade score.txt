@@ -1,0 +1,10 @@
+db.restaurents.aggregate([
+   { 
+$project: {
+name: 1,
+scoreAvg: { $avg: "$grades.score"}
+} 
+},
+{ $sort : { scoreAvg : -1 } },
+{ $limit : 5 }
+])

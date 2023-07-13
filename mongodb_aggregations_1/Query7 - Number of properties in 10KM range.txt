@@ -1,0 +1,12 @@
+db.listingsAndReviews.aggregate([
+   {
+     $geoNear: {
+        near: { type: "Point", coordinates: [ -8.61308 , 41.1413 ] },
+        distanceField: "dist.calculated",
+        maxDistance: 10000,
+        includeLocs: "dist.location",
+        spherical: true
+     }
+   },
+{ $count: "TotalNoOfProperties10KMRange" }
+])

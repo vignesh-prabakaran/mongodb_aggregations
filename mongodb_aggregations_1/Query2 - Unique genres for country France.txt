@@ -1,0 +1,11 @@
+db.movies.aggregate([
+  {
+    "$match": {
+      countries: {
+        $in: ["France"]
+      }
+    }
+  },
+{ $unwind : "$genres" },
+{ $group: { _id: "$genres" } }
+])
