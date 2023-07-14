@@ -1,28 +1,31 @@
+/*Question :: 5
+In db sample_mflix, collections movies and comments, find the name/title of the movie having the most comments.
+*/
+
 db.movies.aggregate( [
    {
-     $lookup:
-       {
-         from: "comments",
-         localField: "_id",
-         foreignField: "movie_id",
-         as: "movie_comments"
-       }
-  },{
-$project: {
-         title: 1,
-         numberOfComments: { $size: ["$movie_comments"] }
+      $lookup: {
+          from: "comments",
+          localField: "_id",
+          foreignField: "movie_id",
+          as: "movie_comments"
       }
-}, {
-       $group:
-         {
-           _id: "$title",
-           totalComments: { $sum: "$numberOfComments" }
-         }
-     },
-{ $sort : { totalComments : 1 } },
-{ "$group": { 
-       "_id": null,
-       "title": { "$last": "$_id" },
-       "maxCommentCount": { "$last": "$totalComments" }
-   }}
+  },{
+      $project: {
+          title: 1,
+          numberOfComments: { $size: ["$movie_comments"] }
+      }
+  },{
+      $group: {
+          _id: "$title",
+          totalComments: { $sum: "$numberOfComments" }
+      }
+  },
+  { $sort : { totalComments : 1 } },
+  { 
+      $group: { 
+          _id: null,
+          title: { "$last": "$_id" },
+          maxCommentCount: { "$last": "$totalComments" }
+      }}
 ] )

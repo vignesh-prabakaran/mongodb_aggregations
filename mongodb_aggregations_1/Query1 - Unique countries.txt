@@ -1,1 +1,12 @@
-db.movies.aggregate( [ { $unwind : "$countries" }, { $group: { _id: "$countries" } } ] )
+/*Question :: 1
+In db sample_mflix, collection movies, find the unique countries.
+*/
+
+db.movies.aggregate( [
+        { 
+            $unwind : "$countries" 
+        },
+        { 
+            $group: { _id: "$countries" } 
+        } 
+        ] )
