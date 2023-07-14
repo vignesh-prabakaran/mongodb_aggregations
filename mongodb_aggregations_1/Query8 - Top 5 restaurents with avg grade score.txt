@@ -1,10 +1,14 @@
+/*Question :: 8
+In db sample_restaurants, collection restaurants, find the top 5 restaurants with highest average grade score -- (grades.score)
+*/
+
 db.restaurents.aggregate([
-   { 
-$project: {
-name: 1,
-scoreAvg: { $avg: "$grades.score"}
-} 
-},
-{ $sort : { scoreAvg : -1 } },
-{ $limit : 5 }
-])
+      { 
+      $project: {
+            name: 1,
+            scoreAvg: { $avg: "$grades.score"}
+         } 
+      },
+      { $sort : { scoreAvg : -1 } },
+      { $limit : 5 }
+      ])
